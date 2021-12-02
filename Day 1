@@ -1,0 +1,21 @@
+numList = []
+
+with open("inputData") as f:
+  for line in f:
+    numList.append(int(line.strip()))
+
+#part1
+count = 0
+for i in range(len(numList) - 1):
+  if numList[i+1] > numList[i]:
+    count += 1 
+
+print(count)
+
+#part2
+count = 0
+for i in range(len(numList) - 3):
+  if numList[i+3] >  numList[i]:
+    count += 1
+
+print(count)
