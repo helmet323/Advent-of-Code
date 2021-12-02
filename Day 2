@@ -1,0 +1,37 @@
+numList = []
+
+f = open("inputData")
+for line in f:
+  numList.append(line.split())
+
+#part1
+forward = 0
+depth = 0
+for i in range(len(numList)):
+  if numList[i][0] == "forward":
+    forward += int(numList[i][1])
+
+  if numList[i][0] == "down":
+    depth += int(numList[i][1])
+
+  if numList[i][0] == "up":
+    depth -= int(numList[i][1])
+
+print(forward * depth)
+
+#part2
+forward = 0
+depth = 0
+aimCount = 0
+for i in range(len(numList)):
+  if numList[i][0] == "forward":
+    depth += aimCount * int(numList[i][1])
+    forward += int(numList[i][1])
+
+  if numList[i][0] == "down":
+    aimCount += int(numList[i][1])
+
+  if numList[i][0] == "up":
+    aimCount -= int(numList[i][1])
+
+print(forward * depth)
