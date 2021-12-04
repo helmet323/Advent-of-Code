@@ -1,0 +1,128 @@
+numList = []
+
+f = open("inputData")
+for line in f:
+  numList.append(line.strip())
+
+bingoNums = numList[0].split(",")
+
+bingoBoards = []
+for i in range(1, len(numList)):
+  bingoBoards.append(numList[i].split(" "))
+
+
+
+def remove_values_from_list(the_list, val):
+   return [value for value in the_list if value != val]
+
+for i in range(len(bingoBoards)):
+  bingoBoards[i] = remove_values_from_list(bingoBoards[i], "")
+
+
+# print(bingoBoards)
+totalBoard = len(bingoBoards) // 6
+# print(totalBoard)
+
+# index 1-5, 7-11 13-17 
+
+a = 0
+b = 0
+
+lastBingoNumber = 0
+lastBoard = 0
+
+def check(boardNum):
+  global a
+  global b
+  for x in range(boardNum * 6 + 1, boardNum * 6 + 6):
+    count = 0
+    for y in range(len(bingoBoards[x])):
+      if bingoBoards[x][y] == "X":
+        count += 1
+
+    if count == 5:
+      a = x
+      b = y
+      for x in range(boardNum * 6 + 1, boardNum * 6 + 6):
+        bingoBoards[x][y] = "F"
+      return True
+
+  for y in range(len(bingoBoards[1])):
+    count2 = 0
+    for x in range(boardNum * 6 + 1, boardNum * 6 + 6):
+    
+      if bingoBoards[x] == []:
+        count2 = 0
+
+      if bingoBoards[x] != []:
+        if bingoBoards[x][y] == "X":
+          count2 += 1
+
+      if count2 == 5:
+        a = x
+        b = y
+        for x in range(boardNum * 6 + 1, boardNum * 6 + 6):
+          bingoBoards[x][y] = "F"
+        return True
+
+# winDict = {}
+winCount = 0
+winList = []
+
+# for i in range(totalBoard):
+#   winDict[i] = "O"
+
+# print(winDict)
+
+for i in range(len(bingoNums)):
+
+
+  for x in range(len(bingoBoards)):
+    for y in range(len(bingoBoards[x])):
+      if bingoBoards[x][y] == bingoNums[i]:
+        bingoBoards[x][y] = "X"
+
+  lastBingoNumber = bingoNums[i]
+
+  # to find the last bingo board that won
+
+  # for i in range(totalBoard):
+  #   if check(i):
+  #     boardNum = a // 6
+  #     if boardNum not in winList:
+  #       winList.append(boardNum)
+
+  # manual breaking
+
+  if check(39):
+    winList.append(39)
+    break
+    # lastBoard = boardNum
+    # winDict[boardNum] = "X"
+  
+  # winCount = 0
+  # for i in range(totalBoard):
+  #   x = winDict[i]
+  #   if x == "X":
+  #     winCount += 1
+  #   if winCount == 99:
+  #     break
+
+boardNum = a // 6
+# print(boardNum)
+
+total = 0
+for x in range(winList[-1] * 6 + 1, winList[-1] * 6 + 6):
+  for y in range(len(bingoBoards[x])):
+    if bingoBoards[x][y] != "X" and bingoBoards[x][y] != "F":
+      total += int(bingoBoards[x][y])
+      
+# print(bingoBoards)
+
+# print(total)
+
+
+# print(lastBoard)
+print(winList)
+
+print(int(total)*int(lastBingoNumber))
