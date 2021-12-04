@@ -43,8 +43,6 @@ def check(boardNum):
     if count == 5:
       a = x
       b = y
-      for x in range(boardNum * 6 + 1, boardNum * 6 + 6):
-        bingoBoards[x][y] = "F"
       return True
 
   for y in range(len(bingoBoards[1])):
@@ -61,18 +59,10 @@ def check(boardNum):
       if count2 == 5:
         a = x
         b = y
-        for x in range(boardNum * 6 + 1, boardNum * 6 + 6):
-          bingoBoards[x][y] = "F"
         return True
 
-# winDict = {}
 winCount = 0
 winList = []
-
-# for i in range(totalBoard):
-#   winDict[i] = "O"
-
-# print(winDict)
 
 for i in range(len(bingoNums)):
 
@@ -85,7 +75,6 @@ for i in range(len(bingoNums)):
   lastBingoNumber = bingoNums[i]
 
   # to find the last bingo board that won
-
   # for i in range(totalBoard):
   #   if check(i):
   #     boardNum = a // 6
@@ -93,20 +82,9 @@ for i in range(len(bingoNums)):
   #       winList.append(boardNum)
 
   # manual breaking
-
   if check(39):
     winList.append(39)
     break
-    # lastBoard = boardNum
-    # winDict[boardNum] = "X"
-  
-  # winCount = 0
-  # for i in range(totalBoard):
-  #   x = winDict[i]
-  #   if x == "X":
-  #     winCount += 1
-  #   if winCount == 99:
-  #     break
 
 boardNum = a // 6
 # print(boardNum)
@@ -114,7 +92,7 @@ boardNum = a // 6
 total = 0
 for x in range(winList[-1] * 6 + 1, winList[-1] * 6 + 6):
   for y in range(len(bingoBoards[x])):
-    if bingoBoards[x][y] != "X" and bingoBoards[x][y] != "F":
+    if bingoBoards[x][y] != "X":
       total += int(bingoBoards[x][y])
       
 # print(bingoBoards)
