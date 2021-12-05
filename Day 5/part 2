@@ -1,0 +1,86 @@
+numList = []
+
+f = open("inputData")
+for line in f:
+  a, b = line.split(" -> ")
+
+  a = list(map(int, a.split(',')))
+  b = list(map(int, b.split(',')))
+  
+  numList.append([a, b])
+
+# print(numList)
+
+x = 0
+y = 0
+for each in numList:
+  a = max(each[0][0], each[1][0])
+  x = max(a, x)
+
+  b = max(each[0][1], each[1][1])
+  y = max(b, y)
+# print(x)
+# print(y)
+
+grid = []
+for i in range(x+1):
+  board = [0]*(y+1)
+  grid.append(board)
+  
+# print(grid)
+# print()
+
+
+for each in numList:
+  if each[0][1] == each[1][1] and each[0][0] < each[1][0]:
+    a = abs(each[0][0] - each[1][0])
+    for i in range(a+1):
+      grid[each[0][0] + i][each[0][1]] += 1
+
+  if each[0][1] == each[1][1] and each[0][0] > each[1][0]:
+    a = abs(each[0][0] - each[1][0])
+    for i in range(a+1):
+      grid[each[0][0] - i][each[0][1]] += 1
+
+  if each[0][0] == each[1][0] and each[0][1] < each[1][1]:
+    a = abs(each[0][1] - each[1][1])
+    for i in range(a+1):
+      grid[each[0][0]][each[0][1] + i] += 1
+
+  if each[0][0] == each[1][0] and each[0][1] > each[1][1]:
+    a = abs(each[0][1] - each[1][1])
+    for i in range(a+1):
+      grid[each[0][0]][each[0][1] - i] += 1
+
+  #diagonal
+  if each[0][0] - each[1][0] == each[0][1] - each[1][1] and each[0][0] - each[1][0] > 0:
+    a = abs(each[0][0] - each[1][0])
+    for i in range(a+1):
+      grid[each[0][0] - i][each[0][1] - i] += 1
+
+  elif each[0][0] - each[1][0] == abs(each[0][1] - each[1][1]):
+    a = abs(each[0][0] - each[1][0])
+    for i in range(a+1):
+      grid[each[0][0] - i][each[0][1] + i] += 1
+
+  elif abs(each[0][0] - each[1][0]) == each[0][1] - each[1][1]:
+    a = abs(each[0][0] - each[1][0])
+    for i in range(a+1):
+      grid[each[0][0] + i][each[0][1] - i] += 1
+
+  elif each[0][0] - each[1][0] == each[0][1] - each[1][1] and each[0][0] - each[1][0] < 0:
+    a = abs(each[0][0] - each[1][0])
+    for i in range(a+1):
+      grid[each[0][0] + i][each[0][1] + i] += 1
+
+# print(grid)
+
+count = 0
+for x in range(len(grid)):
+  for y in range(len(grid[0])):
+    if grid[x][y] >= 2:
+      count += 1
+
+print(count)
+
+
