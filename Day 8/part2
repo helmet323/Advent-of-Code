@@ -1,0 +1,119 @@
+f = open("inputData")
+
+letters = "abcdefg"
+
+totalOutput = 0
+for line in f:
+  a, b = line.strip().split(" | ")
+  
+  d = a.split(" ")
+
+  code = {}
+  index = {}
+
+  #code 1, 4, 7, 8
+
+  for i in d:
+    if len(i) == 2:
+      code[1] = i
+    if len(i) == 4:
+      code[4] = i
+    if len(i) == 3:
+      code[7] = i
+    if len(i) == 7:
+      code[8] = i
+
+
+  # index 3
+  for i in code[7]:
+    if i not in code[1]:
+      index[3] = i  
+  
+  # code 9
+  for i in d:
+    test = code[4] + index[3]
+    letCount = 0
+    for letter in i:
+      if letter in test:
+        letCount += 1
+      if letCount == 5 and len(i) == 6:
+        code[9] = i
+
+  # index 6
+  for i in code[9]:
+    if i not in code[4] + index[3]:
+      index[6] = i
+  
+  # index 2
+  for i in code[8]:
+    if i not in code[9]:
+      index[2] = i
+
+  # code 6
+  for i in d:
+    if len(i) == 6:
+      letCount = 0
+      for letter in i:
+        if letter in code[1]:
+          letCount += 1
+      if letCount == 1:
+        code[6] = i
+
+  # index 4
+  for i in letters:
+    if i not in code[6]:
+      index[4] = i
+
+  # index 7
+  for i in code[1]:
+    if i != index[4]:
+      index[7] = i
+
+  # code 0
+  for i in d:
+    if len(i) == 6:
+      if index[4] in i and index[2] in i:
+        code[0] = i
+
+  # index 5
+  for i in letters:
+    if i not in code[0]:
+      index[5] = i
+
+  # index 1
+  for i in letters:
+    if i not in index.values():
+      index[1] = i
+
+  x = b.split(" ")
+
+  nums = [0]*10
+
+  nums[0] = 23
+  nums[1] = 11
+  nums[2] = 20
+  nums[3] = 25
+  nums[4] = 17
+  nums[5] = 22
+  nums[6] = 24
+  nums[7] = 14
+  nums[8] = 28
+  nums[9] = 26
+
+  output = 0
+  for i in range(len(x)):
+    total = 0
+    for letter in x[i]:
+      total += list(index.keys())[list(index.values()).index(letter)]
+    # print(total)
+
+
+    output += nums.index(total) * 10**(3-i)
+
+  # print(output)
+
+  totalOutput += output
+  
+print(totalOutput)
+
+
