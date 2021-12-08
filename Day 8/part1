@@ -1,0 +1,16 @@
+f = open("inputData")
+
+count = 0
+
+for line in f:
+  a, b = line.strip().split(" | ")
+  
+  c = b.split(" ")
+
+  print(c)
+  
+  for i in c:
+    if len(i) == 2 or len(i) == 4 or len(i) == 3 or len(i) == 7:
+      count += 1
+
+print(count)
