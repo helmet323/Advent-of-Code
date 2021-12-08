@@ -3,12 +3,13 @@ sys.stdin = open("inputData", "r")
 
 numList = list(map(int, input().split(',')))
 
-nums = []
+a = 0
+c = 99999999
+for pos in range (1, max(numList)):
+  a = 0
+  for i in range(len(numList)):
+    a += abs(numList[i] - pos)
+    
+  c = min(c, a)
 
-# testing manually
-for i in range(len(numList)):
-  a = abs(numList[i] - 330)
-
-  nums.append(a)
-
-print(sum(nums))
+print(c)
