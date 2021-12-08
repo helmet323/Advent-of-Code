@@ -1,0 +1,20 @@
+import sys
+sys.stdin = open("inputData", "r")
+
+numList = list(map(int, input().split(',')))
+
+nums = []
+
+# approximate answer
+avg = sum(numList) / len(numList)
+print(avg)
+
+# testing manually
+for i in range(len(numList)):
+  a = abs(numList[i] - 458)
+
+  b = (1 + a) * (a / 2)
+  nums.append(b)
+
+  
+print(sum(nums))
