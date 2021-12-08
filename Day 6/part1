@@ -1,0 +1,34 @@
+import sys
+sys.stdin = open("inputData", "r")
+
+numList = list(map(int, input().split(',')))
+
+# for days in range(100):
+#   for i in range(len(numList)):
+#     numList[i] -= 1
+#     if numList[i] == -1:
+#       numList[i] = 6
+#       numList.append(8)
+
+#   print(numList)
+#   print(len(numList))
+
+# print()
+
+# def grow(count, day, new):
+
+#   while day > 0:
+#     if new == True:
+#       day -= 9
+#       new = False
+#     else:
+#       day -= 7
+
+#     if day > 0:
+#       count += 1
+#       count += grow(0, day, True)[0]
+
+#   # print(count, day)
+#   return count, day, new
+
+# print(grow(1, 100, False))
