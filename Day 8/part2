@@ -87,18 +87,7 @@ for line in f:
 
   x = b.split(" ")
 
-  nums = [0]*10
-
-  nums[0] = 23
-  nums[1] = 11
-  nums[2] = 20
-  nums[3] = 25
-  nums[4] = 17
-  nums[5] = 22
-  nums[6] = 24
-  nums[7] = 14
-  nums[8] = 28
-  nums[9] = 26
+  nums = [23,11,20,25,17,22,24,14,28,26]
 
   output = 0
   for i in range(len(x)):
