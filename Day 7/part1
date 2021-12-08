@@ -1,0 +1,14 @@
+import sys
+sys.stdin = open("inputData", "r")
+
+numList = list(map(int, input().split(',')))
+
+nums = []
+
+# testing manually
+for i in range(len(numList)):
+  a = abs(numList[i] - 330)
+
+  nums.append(a)
+
+print(sum(nums))
