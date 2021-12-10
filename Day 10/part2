@@ -1,0 +1,55 @@
+f = open("inputData")
+
+numList = []
+for line in f:
+  numList.append(line.strip())
+
+# print(numList)
+
+openToClose = {"(" : ")", "[" : "]", "{" : "}", "<" : ">"}
+closingBrackets = { ")" : 3, "]" : 57, "}" : 1197, ">" : 25137}
+
+
+points = 0
+corrupted = []
+allExpected = []
+
+for x in range(len(numList)):
+  expected = []
+  for y in range(len(numList[x])):
+    # print(expected)
+    # print(numList[x][y])
+    if numList[x][y] in closingBrackets.keys() and numList[x][y] != expected[-1]:
+      points += closingBrackets[numList[x][y]]
+      corrupted.append(x)
+      # print(points)
+      break
+    elif numList[x][y] in closingBrackets.keys() and numList[x][y] == expected[-1]:
+      expected.pop(-1)
+    else:
+      expected.append(openToClose[numList[x][y]])
+  allExpected.append(expected)
+
+# print(corrupted)
+# print(allExpected)
+
+total = []
+bracketPoints = { ")" : 1, "]" : 2, "}" : 3, ">" : 4}
+
+for i in range(len(allExpected)):
+  allExpected[i].reverse()
+
+for x in range(len(numList)):
+  temp = 0
+  if x not in corrupted:
+    for y in allExpected[x]:
+      temp *= 5
+      temp += bracketPoints[y]
+    
+    total.append(temp)
+
+# print(total)
+total.sort()
+# print(total)
+
+print(total[len(total)//2])
