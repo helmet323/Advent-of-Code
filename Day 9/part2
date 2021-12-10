@@ -1,0 +1,87 @@
+f = open("inputData")
+
+numList = []
+for line in f:
+  numList.append(list(map(int, line.strip())))
+
+# print()
+# print(numList)
+
+temp = [9]*(len(numList[0])-2)
+numList = [temp] + numList + [temp]
+
+
+for i in range(len(numList)):
+  numList[i].insert(0, 9)
+  numList[i].insert(len(numList[i]), 9)
+
+# print()
+# print(numList)
+
+def fourDirection(pos, lastPos):
+  size = 0
+  global dictNum
+  if numList[pos[0]][pos[1]] < numList[pos[0]-1][pos[1]] and [pos[0]-1,pos[1]] != lastPos and numList[pos[0]-1][pos[1]] != 9:
+    if [pos[0]-1,pos[1]] not in myDict.values():
+      myDict[dictNum] = [pos[0]-1,pos[1]]
+      dictNum += 1
+      size += 1
+      size += fourDirection([pos[0]-1,pos[1]], pos)
+      
+  if numList[pos[0]][pos[1]] < numList[pos[0]+1][pos[1]] and [pos[0]+1,pos[1]] != lastPos and numList[pos[0]+1][pos[1]] != 9:
+    if [pos[0]+1,pos[1]] not in myDict.values():
+      myDict[dictNum] = [pos[0]+1,pos[1]]
+      dictNum += 1
+      size += 1
+      size += fourDirection([pos[0]+1,pos[1]], pos)
+
+  if numList[pos[0]][pos[1]] < numList[pos[0]][pos[1]-1] and [pos[0],pos[1]-1] != lastPos  and numList[pos[0]][pos[1]-1] != 9:
+    if [pos[0],pos[1]-1] not in myDict.values():
+      myDict[dictNum] = [pos[0],pos[1]-1]
+      dictNum += 1
+      size += 1
+      size += fourDirection([pos[0],pos[1]-1], pos)
+
+  if numList[pos[0]][pos[1]] < numList[pos[0]][pos[1]+1] and [pos[0],pos[1]+1] != lastPos  and numList[pos[0]][pos[1]+1] != 9:
+    if [pos[0],pos[1]+1] not in myDict.values():
+      myDict[dictNum] = [pos[0],pos[1]+1]
+      dictNum += 1
+      size += 1
+      size += fourDirection([pos[0],pos[1]+1], pos)
+
+  return size
+
+
+sinks = []
+sinkSize = []
+
+myDict = {}
+dictNum = 0
+
+for x in range(1, len(numList)-1):
+  for y in range(1, len(numList[0])-1):
+    count = 0
+
+    if numList[x][y] < numList[x-1][y]:
+      count += 1
+    if numList[x][y] < numList[x+1][y]:
+      count += 1
+    if numList[x][y] < numList[x][y-1]:
+      count += 1
+    if numList[x][y] < numList[x][y+1]:
+      count += 1
+
+    if count == 4:
+      sinks.append(numList[x][y])
+
+      size = 1
+      myDict[dictNum] = [x,y]
+      dictNum += 1
+      size += fourDirection([x,y], [x,y])
+      sinkSize.append(size)
+      
+
+print(sinkSize)
+
+sinkSize.sort(reverse=True)
+print(sinkSize[0] * sinkSize[1] * sinkSize[2])
