@@ -1,0 +1,39 @@
+f = open("inputData")
+
+numList = []
+for line in f:
+  numList.append(list(map(int, line.strip())))
+
+# print()
+# print(numList)
+
+temp = [9]*(len(numList[0])-2)
+numList = [temp] + numList + [temp]
+
+for x in range(1, len(numList)-1):
+  for y in range(1, len(numList[0])-1):
+    count = 0
+
+    if numList[x][y] < numList[x-1][y]:
+      count += 1
+    if numList[x][y] < numList[x+1][y]:
+      count += 1
+    if numList[x][y] < numList[x][y-1]:
+      count += 1
+    if numList[x][y] < numList[x][y+1]:
+      count += 1
+
+    if count == 4:
+      sinks.append(numList[x][y])
+
+      size = 1
+      size += fourDirection([x,y], [x,y])
+      sinkSize.append(size)
+
+# total = 0
+# for i in sinks:
+#   total += i + 1
+
+
+# print(sinks)
+# print(total)
