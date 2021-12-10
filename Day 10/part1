@@ -1,0 +1,29 @@
+f = open("inputData")
+
+numList = []
+for line in f:
+  numList.append(line.strip())
+
+# print(numList)
+
+openToClose = {"(" : ")", "[" : "]", "{" : "}", "<" : ">"}
+closingBrackets = { ")" : 3, "]" : 57, "}" : 1197, ">" : 25137}
+
+
+points = 0
+
+for x in range(len(numList)):
+  expected = []
+  for y in range(len(numList[x])):
+    # print(expected)
+    # print(numList[x][y])
+    if numList[x][y] in closingBrackets.keys() and numList[x][y] != expected[-1]:
+      points += closingBrackets[numList[x][y]]
+      # print(points)
+      break
+    elif numList[x][y] in closingBrackets.keys() and numList[x][y] == expected[-1]:
+      expected.pop(-1)
+    else:
+      expected.append(openToClose[numList[x][y]])
+
+print(points)
