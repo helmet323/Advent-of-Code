@@ -1,0 +1,60 @@
+numList = []
+
+import sys
+sys.stdin = open("inputData", "r")
+
+for x in range(10):
+  temp = []
+  a = input()
+  temp.append(-999)
+  for y in range(10):
+    temp.append(int(a[y]))
+  temp.append(-999)
+  numList.append(temp)
+
+temp = [-999, -999, -999, -999, -999, -999, -999, -999, -999, -999, -999, -999,]
+
+numList.insert(0,temp)
+numList.insert(len(numList), temp)
+
+print()
+print(numList)
+
+count = 0
+
+def allDirection(x, y):
+  global count
+  if numList[x][y] >= 10:
+    numList[x][y] = 0
+    count += 1
+    checkList.append([x,y])
+
+    for i in range(-1, 2):
+      for j in range(-1, 2):
+        if [x+i, y+j] not in checkList: 
+          numList[x+i][y+j] += 1
+          allDirection(x+i,y+j)
+
+
+
+for days in range(500):
+  checkList = []
+  for x in range(1, 11):
+    for y in range(1, 11):
+      numList[x][y] += 1
+
+  for x in range(1, 11):
+    for y in range(1, 11):
+      if numList[x][y] >= 10:
+        allDirection(x, y)
+
+  if len(checkList) == 100:
+    print(days)
+    break
+
+# print(numList)
+
+# print(count)
+
+      
+      
